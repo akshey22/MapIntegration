@@ -289,7 +289,7 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:padding="@dimen/_5sdp"
-                    android:src="@drawable/ic_left_arrow"/>
+                    android:src="@drawable/ic_chevron_left_black_24dp"/>
 
         </RelativeLayout>
 

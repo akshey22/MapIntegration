@@ -25,19 +25,50 @@
     </style>
 
 
+    <style name="TextAppearance.TitleBig.Bold" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/_22sdp</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+    </style>
+    <style name="TextAppearance.TitleBig.SemiBold" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/_22sdp</item>
+        <item name="android:fontFamily">@font/opensand_semibold</item>
+    </style>
+
+    <style name="TextAppearance.TitleBig.Light" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_20sdp</item>
+        <item name="android:fontFamily">@font/opensans_regular</item>
+    </style>
+
+
+
     <style name="TextAppearance.Title" parent="@style/TextAppearance.AppCompat.Title">
-        <item name="android:textSize">@dimen/_18sdp</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
         <item name="android:fontFamily">@font/open_sans_bold</item>
     </style>
     <style name="TextAppearance.Title.SemiBold" parent="@style/TextAppearance.AppCompat.Title">
-        <item name="android:textSize">@dimen/_18sdp</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
         <item name="android:fontFamily">@font/opensand_semibold</item>
     </style>
 
     <style name="TextAppearance.Title.Light" parent="@style/TextAppearance.AppCompat.Title">
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/_18sdp</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
         <item name="android:fontFamily">@font/opensans_regular</item>
+    </style>
+    <style name="TextAppearance.Medium1" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:fontFamily">@font/opensans_regular</item>
+    </style>
+    <style name="TextAppearance.Medium1.Bold" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+    </style>
+    <style name="TextAppearance.Medium1.Semi" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:fontFamily">@font/opensand_semibold</item>
     </style>
 
     <style name="TextAppearance.Medium" parent="@style/TextAppearance.AppCompat.Medium">
@@ -48,7 +79,18 @@
 
     <style name="TextAppearance.Medium.Semi" parent="@style/TextAppearance.AppCompat.Medium">
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/_13sdp</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:fontFamily">@font/opensand_semibold</item>
+    </style>
+    <style name="TextAppearance.MediumMore" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+        <item name="android:fontFamily">@font/opensans_regular</item>
+    </style>
+
+    <style name="TextAppearance.MediumMore.Semi" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
         <item name="android:fontFamily">@font/opensand_semibold</item>
     </style>
 
@@ -61,8 +103,13 @@
         <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:fontFamily">@font/open_sans_bold</item>
     </style>
+
+    <style name="TextAppearance.Small.SemiBold" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:fontFamily">@font/opensand_semibold</item>
+    </style>
+
     <style name="TextAppearance.Small.Light" parent="@style/TextAppearance.AppCompat.Medium">
-        <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
@@ -71,6 +118,30 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/_9sdp</item>
         <item name="android:fontFamily">@font/opensans_regular</item>
+    </style>
+
+    <style name="TextAppearance.SmallMore.Semibold" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_9sdp</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+    </style>
+
+    <style name="TextAppearance.SmallMore1.Semibold" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_9sdp</item>
+        <item name="android:fontFamily">@font/opensand_semibold</item>
+    </style>
+
+    <style name="TextAppearance.SmallMore1.Light" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_8sdp</item>
+        <item name="android:fontFamily">@font/opensans_regular</item>
+    </style>
+
+    <style name="TextAppearance.SmallMore2.Semibold" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_8sdp</item>
+        <item name="android:fontFamily">@font/opensand_semibold</item>
     </style>
 
     <style name="RippleStyleWhite">

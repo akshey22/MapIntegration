@@ -157,7 +157,14 @@
     <color name="orangeshg">#FFA700</color>
     <color name="orangeshg_green">#20BE26</color>
     <color name="light_blues_pastel">#00ACCE</color>
-
+    <color name="grey_5">#f2f2f2</color>
+    <color name="grey_20">#cccccc</color>
+    <color name="grey_10">#DADADA</color>
+    <color name="grey_40">#999999</color>
+    <color name="grey_30">#B1B1B1</color>
+    <color name="grey_60">#666666</color>
+    <color name="grey_90">#263238</color>
+    <color name="grey_90_">#252525</color>
 
 
 
@@ -166,7 +173,7 @@
     <color name="DBDC8">#4DBDC8</color>
     <color name="FF7777">#FF7777</color>
     <color name="grey_20">#cccccc</color>
-
+    <color name="f5f5f5">#f5f5f5</color>
     <color name="ood3">#00d3db</color>
     <color name="e5feff">#e5feff</color>
 
