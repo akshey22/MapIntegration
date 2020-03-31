@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.unyde.mapintegrationlib.ApplicationContext
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.Marker_Internal_Nav
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.mapview.RouteLayer
+import org.unyde.mapintegrationlib.InternalNavigation.indoornav.mapview.RouteLayer_Direction
 import org.unyde.mapintegrationlib.InternalNavigation.view.ModelRenderer
 import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.PathNode
@@ -16,7 +17,7 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
 
 
     var renderer: ModelRenderer? = null
-    var routeLayer: RouteLayer? = null
+    var routeLayer: RouteLayer_Direction? = null
     var path_node_array: Array<String>? = null
     val paramUri: Uri? = null
     val paramType: Int = -1
@@ -52,7 +53,7 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
     fun init() {
 
         mActionMode = IndoorMode.NORMAL
-        routeLayer = RouteLayer()
+        routeLayer = RouteLayer_Direction()
         source_instruction_list = ArrayList<String>()
         source_instruction_site_list = ArrayList<String>()
         source_instruction_direction_list = ArrayList<Int>()
@@ -196,9 +197,9 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
             total_calorie=totCalorie+total_calorie!!
             var totSteps = routeLayer!!.tot_steps
             total_steps=totSteps+total_steps!!
-            destination_instruction_list = routeLayer!!.instruction_list as ArrayList<String>
-             destination_instruction_site_list = routeLayer!!.instruction_site_list as ArrayList<String>
-            destination_instruction_direction_list = routeLayer!!.instruction_direction_list as ArrayList<Int>
+            destination_instruction_list = routeLayer!!.destination_instruction_list as ArrayList<String>
+             destination_instruction_site_list = routeLayer!!.destination_instruction_site_list as ArrayList<String>
+            destination_instruction_direction_list = routeLayer!!.destination_instruction_direction_list as ArrayList<Int>
 
             calorieCallback!!.onCalorieSteps1(total_calorie.toString(), total_steps.toString(),source_instruction_list,source_instruction_site_list,source_instruction_direction_list, destination_instruction_list, destination_instruction_site_list, destination_instruction_direction_list)
 

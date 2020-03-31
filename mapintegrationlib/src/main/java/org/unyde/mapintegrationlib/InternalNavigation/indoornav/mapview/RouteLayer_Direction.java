@@ -1,8 +1,15 @@
 package org.unyde.mapintegrationlib.InternalNavigation.indoornav.mapview;
 
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PointF;
 import android.util.Log;
 import android.view.MotionEvent;
+
 import org.unyde.mapintegrationlib.ApplicationContext;
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.Path_node;
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.algorithm.Hipster;
@@ -22,13 +29,12 @@ import java.util.List;
 import java.util.Random;
 
 
-
 /**
  * RouteLayer
  *
  * @author: onlylemi
  */
-public class RouteLayer extends MapBaseLayer {
+public class RouteLayer_Direction extends MapBaseLayer {
 
     private List<Integer> routeList; // routes list
     private List<PointF> nodeList; // nodes list
@@ -63,6 +69,12 @@ public class RouteLayer extends MapBaseLayer {
     public List<String> instruction_site_list;
     public List<Integer> instruction_direction_list;
 
+
+    public List<String> destination_instruction_list;
+    public List<String> destination_instruction_site_list;
+    public List<Integer> destination_instruction_direction_list;
+
+
     public boolean multifloor_status = false;
     public boolean src_floor_status = false;
 
@@ -71,16 +83,16 @@ public class RouteLayer extends MapBaseLayer {
     public HashMap<String, List<String>> node_connection_list, node_connection_list_dest;
 
 
-    public RouteLayer(MapView mapView) {
+    public RouteLayer_Direction(MapView mapView) {
         this(mapView, null, null);
     }
 
-    public RouteLayer(MapView mapView, List<String> nodeName, List<PointF> marks) {
+    public RouteLayer_Direction(MapView mapView, List<String> nodeName, List<PointF> marks) {
         this(mapView, nodeName, marks, null, null);
     }
 
 
-    public RouteLayer() {
+    public RouteLayer_Direction() {
         splited_path_dest = new ArrayList<String>();
         splited_path_source = new ArrayList<String>();
         selected_floor_path_mapping = new HashMap<Integer, String>();
@@ -90,7 +102,7 @@ public class RouteLayer extends MapBaseLayer {
         instruction_direction_list = new ArrayList<Integer>();
     }
 
-    public RouteLayer(MapView mapView, List<String> nodeName, List<PointF> marks, List<PointF> nodeList, List<Integer> routeList) {
+    public RouteLayer_Direction(MapView mapView, List<String> nodeName, List<PointF> marks, List<PointF> nodeList, List<Integer> routeList) {
         super(mapView);
         node_connection_list = new HashMap<String, List<String>>();
         this.nodeList = nodeList;
@@ -186,13 +198,16 @@ public class RouteLayer extends MapBaseLayer {
         instruction_list.clear();
         instruction_direction_list.clear();
         instruction_site_list.clear();
+        destination_instruction_list.clear();
+        destination_instruction_direction_list.clear();
+        destination_instruction_site_list.clear();
 
 
         multifloor_status = true;
         src_floor_status = true;
         get_instruction_list_by_floor(splited_path_source.get(selected_index_of_splitted_path));
         src_floor_status = false;
-        get_instruction_list_by_floor(splited_path_dest.get(selected_index_of_splitted_path));
+        destination_get_instruction_list_by_floor(splited_path_dest.get(selected_index_of_splitted_path));
 
         tot_calorie = calories_val + calories_val1;
         tot_steps= (int) calories_calculation(splited_path_source.get(selected_index_of_splitted_path))[1]+(int) calories_calculation(splited_path_dest.get(selected_index_of_splitted_path))[1];
@@ -239,6 +254,51 @@ public class RouteLayer extends MapBaseLayer {
             else
             {
                 generate_dynamic_instruction_intermediate(site_list_array[i-1],site_list_array[i],site_list_array[i+1]);
+                //instruction_list.add("Head Straight");
+                //instruction_direction_list.add("1");
+                // Math
+            }
+
+        }
+    }
+
+    public void destination_get_instruction_list_by_floor(String site_list)
+    {
+        Random rand = new Random();
+        List<String> instruction = new ArrayList<>();
+        String site_list_array[];
+        site_list_array = site_list.split(",");
+        sequential_straight_status = false;
+        for(int i=0;i<site_list_array.length;i++)
+        {
+            //instruction_site_list.add(site_list_array[i]);
+            // instruction_direction_list.add(Integer.toString(rand.nextInt(6 - 1) + 1));
+            if(i==0)
+            {
+                destination_generate_dynamic_instruction_initial(site_list_array[i],site_list_array[i+1]);
+                //instruction_list.add("Your Location");
+                //instruction_direction_list.add("0");
+
+            }
+            else if(i==site_list_array.length-1)
+            {
+                if(multifloor_status && src_floor_status)
+                {
+                    destination_instruction_site_list.add(site_list_array[i]);
+                    destination_instruction_list.add("Take Lift");
+                    destination_instruction_direction_list.add(Constants.LIFT);
+                }
+                else
+                {
+                    destination_instruction_site_list.add(site_list_array[i]);
+                    destination_instruction_list.add("Your Destination");
+                    destination_instruction_direction_list.add(Constants.DESTINATION);
+                }
+
+            }
+            else
+            {
+                destination_generate_dynamic_instruction_intermediate(site_list_array[i-1],site_list_array[i],site_list_array[i+1]);
                 //instruction_list.add("Head Straight");
                 //instruction_direction_list.add("1");
                 // Math
@@ -358,6 +418,117 @@ public class RouteLayer extends MapBaseLayer {
 
     }
 
+
+    public void destination_generate_dynamic_instruction_initial(String site1,String site2)
+    {
+        destination_instruction_site_list.add(site1);
+        float[] src_coord = get_node_coordinate(site1);
+        float[] dest_coord = get_node_coordinate(site2);
+        float delta_x = dest_coord[0] - src_coord[0];
+        float delta_z = dest_coord[2] - src_coord[2];
+        float delta_y = 0;
+
+
+        float vlen = android.opengl.Matrix.length(delta_x, delta_y, delta_z);
+        delta_x /= vlen;
+        delta_y /= vlen;
+        delta_z /= vlen;
+
+        float[] base_vector = new float[]{0,0,1};
+        float[] generated_vector = new float[] {delta_x,delta_y,delta_z};
+
+        //angle
+        float var1 = (base_vector[0]*generated_vector[0])+(base_vector[2]*generated_vector[2]);
+        float var2 = (float)(Math.sqrt((base_vector[0]*base_vector[0])+(base_vector[2]*base_vector[2]))*Math.sqrt((generated_vector[0]*generated_vector[0])+(generated_vector[2]*generated_vector[2])));
+
+        double angla = Math.acos(var1/var2);
+        double angle_degree = Math.toDegrees(angla);
+        float degree = (float)(-angle_degree-45);
+        if(degree<=23 && degree>-23)
+        {
+            destination_instruction_list.add("Head towards North ");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_NORTH);
+        }
+        else if(degree<=-23&& degree>-67)
+        {
+            destination_instruction_list.add("Head towards North West ");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_NORTH_WEST);
+        }
+        else if(degree<=-67 && degree>-113)
+        {
+            destination_instruction_list.add("Head towards  West ");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_WEST);
+        }
+        else if(degree<=-113 && degree>-157)
+        {
+            destination_instruction_list.add("Head towards  South West ");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_SOUTH_WEST);
+        }
+        else if(degree<=-157 && degree>-203)
+        {
+            destination_instruction_list.add("Head towards South");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_SOUTH);
+        }
+        else if(degree<=-203 && degree>-247)
+        {
+            destination_instruction_list.add("Head towards South East");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_SOUTH_EAST);
+        }
+        else if(degree<=-247 && degree>-293)
+        {
+            destination_instruction_list.add("Head towards East");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_EAST);
+        }
+        else if(degree<=-293 && degree>-337)
+        {
+            destination_instruction_list.add("Head towards North East");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_NORTH_EAST);
+        }
+        else if(degree<=-337 && degree>=360)
+        {
+            destination_instruction_list.add("Head towards North ");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_NORTH);
+        }
+
+
+        else if(degree<=67 && degree>23)
+        {
+            destination_instruction_list.add("Head towards North East");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_NORTH_EAST);
+        }
+
+        else if(degree<=113 && degree>67)
+        {
+            destination_instruction_list.add("Head towards East");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_EAST);
+        }
+        else if(degree<=157 && degree>113)
+        {
+            destination_instruction_list.add("Head towards South East");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_SOUTH_EAST);
+        }
+        else if(degree<=180 && degree>157)
+        {
+            destination_instruction_list.add("Head towards South");
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_SOUTH);
+        }
+
+        else
+        {
+            destination_instruction_list.add("Finding Angle"+degree);
+            destination_instruction_direction_list.add(Constants.HEAD_TOWARDS_SOUTH);
+        }
+
+
+
+
+
+
+
+
+
+    }
+
     public void generate_dynamic_instruction_intermediate(String prev_site1,String site1,String site2)
     {
 
@@ -448,6 +619,110 @@ public class RouteLayer extends MapBaseLayer {
                 instruction_site_list.add(site1);
                 instruction_list.add("Turn Left");
                 instruction_direction_list.add(Constants.TURN_LEFT);
+
+            }
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+    public void destination_generate_dynamic_instruction_intermediate(String prev_site1,String site1,String site2)
+    {
+
+        float[] prev_src_coord = get_node_coordinate(prev_site1);
+        float[] src_coord =  get_node_coordinate(site1);
+        float[] dest_coord = get_node_coordinate(site2);
+
+       /* float m1 = (prev_src_coord[0]-src_coord[0])/(prev_src_coord[2]-src_coord[2]);
+        float m2 =  (src_coord[0]-dest_coord[0])/(src_coord[2]-dest_coord[2]);
+
+        double angla = Math.atan((m2-m1)/(1+m1*m2));
+        double angle_degree = Math.toDegrees(angla);
+
+        instruction_list.add("Turn Left"+(m2-m1)/(1+m1*m2));*/
+
+
+        float[] base_vector = new float[]{src_coord[0]-prev_src_coord[0],0,src_coord[2]-prev_src_coord[2]};
+        /*float base_vlen = android.opengl.Matrix.length(base_vector[0],0, base_vector[2]);
+        base_vector[0] /= base_vlen;
+        base_vector[1] /= base_vlen;
+        base_vector[2] /= base_vlen;*/
+
+        float[] next_vector = new float[]{dest_coord[0]-src_coord[0],0,dest_coord[2]-src_coord[2]};
+        /*float next_vlen = android.opengl.Matrix.length(next_vector[0],0, next_vector[2]);
+        next_vector[0] /= next_vlen;
+        next_vector[1] /= next_vlen;
+        next_vector[2] /= next_vlen;*/
+
+
+
+
+        //angle
+        //float var1 = (base_vector[0]*next_vector[0])+(base_vector[2]*next_vector[2]); //cos
+        float var1 = (base_vector[0]*next_vector[2])-(base_vector[2]*next_vector[0]);
+        float var2 = (float)(Math.sqrt((base_vector[0]*base_vector[0])+(base_vector[2]*base_vector[2]))*Math.sqrt((next_vector[0]*next_vector[0])+(next_vector[2]*next_vector[2])));
+
+        double angla = Math.asin(var1/var2);
+        double angle_degree = Math.toDegrees(angla);
+        // instruction_list.add("Turn Left"+angle_degree);
+        System.out.println(""+angle_degree);
+
+        if(angle_degree>=0)
+        {
+            if(angle_degree<=20 && !sequential_straight_status)
+            {
+                sequential_straight_status = true;
+                destination_instruction_site_list.add(site1);
+                destination_instruction_list.add("Take Straight");
+                destination_instruction_direction_list.add(Constants.TAKE_STRAIGHT);
+            }
+            else if(angle_degree>20 && angle_degree<=40)
+            {
+                sequential_straight_status = false;
+                destination_instruction_site_list.add(site1);
+                destination_instruction_list.add("Take Slight Right");
+                destination_instruction_direction_list.add(Constants.TAKE_SLIGHT_RIGHT);
+            }
+            else if(angle_degree>40 && angle_degree<=90)
+            {
+                sequential_straight_status = false;
+                destination_instruction_site_list.add(site1);
+                destination_instruction_list.add("Turn Right");
+                destination_instruction_direction_list.add(Constants.TURN_RIGHT);
+            }
+
+        }
+
+        if(angle_degree<0)
+        {
+            if(angle_degree>=-20  && !sequential_straight_status)
+            {
+                sequential_straight_status = true;
+                destination_instruction_site_list.add(site1);
+                destination_instruction_list.add("Take Straight");
+                destination_instruction_direction_list.add(Constants.TAKE_STRAIGHT);
+            }
+            else if(angle_degree<-20 && angle_degree>=-40)
+            {
+                sequential_straight_status = false;
+                destination_instruction_site_list.add(site1);
+                destination_instruction_list.add("Take Slight Left");
+                destination_instruction_direction_list.add(Constants.TAKE_SLIGHT_LEFT);
+
+            }
+            else if(angle_degree<-40 && angle_degree>=-90)
+            {
+                sequential_straight_status = false;
+                destination_instruction_site_list.add(site1);
+                destination_instruction_list.add("Turn Left");
+                destination_instruction_direction_list.add(Constants.TURN_LEFT);
 
             }
 
