@@ -39,8 +39,8 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
     var destination_instruction_list: ArrayList<String>? = null
     var destination_instruction_site_list: ArrayList<String>? = null
     var destination_instruction_direction_list: ArrayList<Int>? = null
-    var total_calorie:Int?=null
-    var total_steps:Int?=null
+    var total_calorie:Int?=0
+    var total_steps:Int?=0
 
 
     companion object {
@@ -144,7 +144,9 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
 
 
             var totCalorie = routeLayer!!.tot_calorie.toInt()
+            total_calorie=totCalorie+total_calorie!!
             var totSteps = routeLayer!!.tot_steps
+            total_steps=totSteps+total_steps!!
             source_instruction_list = routeLayer!!.instruction_list as ArrayList<String>
             source_instruction_site_list = routeLayer!!.instruction_site_list as ArrayList<String>
             source_instruction_direction_list = routeLayer!!.instruction_direction_list as ArrayList<Int>
