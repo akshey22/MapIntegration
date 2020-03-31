@@ -25,7 +25,7 @@ class SourceStepsListAdapter(internal var instruction_list: MutableList<String>?
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SourceStepsListAdapterViewholder {
-        val view = LayoutInflater.from(context).inflate(R.layout.steps_instruction_list, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.steps_list_item, parent, false)
 
         return SourceStepsListAdapterViewholder(view)
     }
