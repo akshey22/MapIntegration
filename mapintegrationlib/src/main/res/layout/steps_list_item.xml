@@ -22,15 +22,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/instruction_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:text="Turn left towards lift lobby"
                 style="@style/TextAppearance.Small.Light"
                 android:textColor="@color/grey_60"
