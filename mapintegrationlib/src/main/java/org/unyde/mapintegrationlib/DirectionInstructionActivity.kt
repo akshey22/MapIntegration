@@ -8,10 +8,14 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.widget.*
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMapInstruction
+import org.unyde.mapintegrationlib.adapter.SourceStepsListAdapter
 import org.unyde.mapintegrationlib.util.Constants
 
 class DirectionInstructionActivity : AppCompatActivity(),
@@ -24,6 +28,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
     private var source_store_name_i_m_here: String? = null
     private var source_floor_level_i_m_here: String? = null
     private var source_floor: String? = null
+    private var source_floor_name: String? = null
 
     ///////////////Destination
 
@@ -33,6 +38,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
     private var destination_store_name: String = ""
     private var destination_store_address: String = ""
     private var destination_floor: String? = null
+    private var destination_floor_name: String? = null
     private var destination_logo: String? = null
 
     ///////////////////////////////Views
@@ -60,6 +66,13 @@ class DirectionInstructionActivity : AppCompatActivity(),
     var destination :TextView?=null
     var steps :TextView?=null
     var floor_1 :TextView?=null
+    var steps_recycler :RecyclerView?=null
+    var steps_recycler_1 :RecyclerView?=null
+    var cc_1 :CardView?=null
+    var cc_2 :CardView?=null
+
+    ///////////////////////////////////
+    var sourceStepsListAdapter: SourceStepsListAdapter? = null
 
 
 
@@ -72,15 +85,21 @@ class DirectionInstructionActivity : AppCompatActivity(),
         destination = findViewById(R.id.destination)
         steps = findViewById(R.id.steps)
         floor_1 = findViewById(R.id.floor_1)
+        steps_recycler = findViewById(R.id.steps_recycler)
+        steps_recycler_1 = findViewById(R.id.steps_recycler_1)
+        cc_1 = findViewById(R.id.cc_1)
+        cc_2 = findViewById(R.id.cc_2)
         ///////////from Other Activity
         source_beacon_siteid_i_m_here = intent.getStringExtra("source_site_id")
         source_floor_level_i_m_here = intent.getStringExtra("source_floor")
         source_store_name_i_m_here = intent.getStringExtra("source_store_name")
         source!!.text=source_store_name_i_m_here
         source_floor = intent.getStringExtra("source_floor")
+        source_floor_name = intent.getStringExtra("source_floor_name")
         destination_site = intent.getStringExtra("destination_site_id")
         dest_floor_level = intent.getStringExtra("destination_floor_level")
         destination_floor = intent.getStringExtra("destination_floor_level")
+        destination_floor_name = intent.getStringExtra("destination_floor_name")
         destination_store_name = intent.getStringExtra("destination_store_name")
         destination!!.text=destination_store_name
         destination_logo = intent.getStringExtra("destination_logo")
@@ -92,6 +111,14 @@ class DirectionInstructionActivity : AppCompatActivity(),
         isViaBeacon = getIntent().getBooleanExtra("isViaBeacon", false)
         ////////////////////////////
         floor = source_floor_level_i_m_here!!.toInt()
+        if(source_floor_level_i_m_here!!.toInt()!=dest_floor_level.toInt())
+        {
+          cc_2!!.visibility=View.VISIBLE
+        }
+        else
+        {
+            cc_2!!.visibility=View.GONE
+        }
         shownFloorMap = floor.toString()
         cluster3DMapInstruction = Cluster3DMapInstruction(this,  this, cluster_id!!)
         cluster3DMapInstruction!!.init()
@@ -122,6 +149,9 @@ class DirectionInstructionActivity : AppCompatActivity(),
                 this.instruction_list = instruction_list
                 this.instruction_site_list = instruction_site_list
                 this.instruction_direction_list = instruction_direction_list
+                sourceStepsListAdapter = SourceStepsListAdapter(instruction_list, instruction_site_list, instruction_direction_list, this@DirectionInstructionActivity)
+                steps_recycler?.setAdapter(sourceStepsListAdapter)
+                sourceStepsListAdapter!!.notifyDataSetChanged()
             }
 
 
