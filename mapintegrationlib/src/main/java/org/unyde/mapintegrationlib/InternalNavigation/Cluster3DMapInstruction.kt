@@ -50,7 +50,9 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
 
         mActionMode = IndoorMode.NORMAL
         routeLayer = RouteLayer()
-
+        total_instruction_list = ArrayList<String>()
+        total_instruction_site_list = ArrayList<String>()
+        total_instruction_direction_list = ArrayList<Int>()
 
 
     }
