@@ -1,25 +1,15 @@
 package org.unyde.mapintegrationlib.InternalNavigation
 
-import android.app.Activity
 import android.net.Uri
-import android.os.Handler
 import android.util.Log
-import java.io.IOException
-import java.lang.Float
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import org.unyde.mapintegrationlib.ApplicationContext
-import org.unyde.mapintegrationlib.InternalNavigation.demo.MainSceneLoader
-import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.Marker_Internal_Nav
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.mapview.RouteLayer
 import org.unyde.mapintegrationlib.InternalNavigation.view.ModelRenderer
-import org.unyde.mapintegrationlib.InternalNavigation.view.ModelSurfaceView
 import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.PathNode
-import org.unyde.mapintegrationlib.interfaces.FloorClickListner
-import org.unyde.mapintegrationlib.util.Constants
+import java.lang.Float
 
 
 class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calorieCallback: CalorieStepsCallback?, var clusterId: String) {
@@ -42,6 +32,12 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
 
     var temp_connection_list_source: java.util.HashMap<String, List<String>>? = null
     var temp_connection_list_destination: java.util.HashMap<String, List<String>>? = null
+
+    var total_instruction_list: ArrayList<String>? = null
+    var total_instruction_site_list: ArrayList<String>? = null
+    var total_instruction_direction_list: ArrayList<Int>? = null
+    var total_calorie:Int?=null
+    var total_steps:Int?=null
 
 
     companion object {
@@ -88,6 +84,16 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
             val distict_floor_array = ArrayList<String>()
             distict_floor_array!!.add(source_beacon_floor)
             distict_floor_array!!.add(destination_floor_level!!)
+            if(source_beacon_floor!=destination_floor_level)
+            {
+                show3DMapNavigation(source_beacon_floor!!.toInt(),false)
+                show3DMapNavigationDestination(destination_floor_level!!.toInt())
+            }
+            else
+            {
+                show3DMapNavigation(source_beacon_floor!!.toInt(),true)
+            }
+
 
         } catch (e: Exception) {
             if(!source_beacon_id.equals(destination_beacon_id))
@@ -99,6 +105,102 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
         }
 
 
+    }
+
+    fun show3DMapNavigation(floor: Int?,isSameFloor:Boolean?) {
+        try {
+            var allNode: List<PathNode>
+
+            val allMarker = ArrayList<Marker_Internal_Nav>()
+
+            routeLayer!!.path_node_array = routeLayer!!.selected_floor_path_mapping[Integer.parseInt(floor.toString())]!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+
+            for (i in 0 until routeLayer!!.path_node_array!!.size) {
+                allNode = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().findById(routeLayer!!.path_node_array[i],clusterId)
+                if (allNode!!.size > 0) {
+                    // allMarker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_x != "") allNode!!.get(0).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_y != "") allNode!!.get(0).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_z != "") allNode!!.get(0).site_map_coord_z else "0")!!))
+                    allMarker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_x != "") allNode!!.get(0).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_y != "") allNode!!.get(0).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_z != "") allNode!!.get(0).site_map_coord_z else "0")!!, allNode!!.get(0).store_id!!, allNode!!.get(0).floor_name!!, allNode!!.get(0).site_id!!, allNode!!.get(0).store_name))
+                }
+            }
+
+            var path_node_array_1: Array<String>? = null
+            if (routeLayer!!.selected_floor_path_mapping.size > 0) {
+                for ((k, v) in routeLayer!!.selected_floor_path_mapping) {
+                    println("$k = $v")
+                    path_node_array_1 = "$v"!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+                }
+                path_node_array=path_node_array_1
+            }
+
+
+            var totCalorie = routeLayer!!.tot_calorie.toInt()
+            var totSteps = routeLayer!!.tot_steps
+            var instruction_list = routeLayer!!.instruction_list
+            var instruction_site_list = routeLayer!!.instruction_site_list
+            var instruction_direction_list = routeLayer!!.instruction_direction_list
+            total_instruction_list!!.addAll(instruction_list)
+            total_instruction_site_list!!.addAll(instruction_site_list)
+            total_instruction_direction_list!!.addAll(instruction_direction_list)
+            if(isSameFloor!!)
+            {
+                calorieCallback!!.onCalorieSteps(totCalorie.toString(), totSteps.toString(), instruction_list, instruction_site_list, instruction_direction_list)
+            }
+
+
+        } catch (e: java.lang.Exception) {
+            Log.e("Clauste3D", ""+e.message)
+            calorieCallback!!.onCalorieSteps("","", null, null, null)
+
+        }
+    }
+
+    fun show3DMapNavigationDestination(floor: Int?) {
+        try {
+            var allNode: List<PathNode>
+
+            val allMarker = ArrayList<Marker_Internal_Nav>()
+
+            routeLayer!!.path_node_array = routeLayer!!.selected_floor_path_mapping[Integer.parseInt(floor.toString())]!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+
+            for (i in 0 until routeLayer!!.path_node_array!!.size) {
+                allNode = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().findById(routeLayer!!.path_node_array[i],clusterId)
+                if (allNode!!.size > 0) {
+                    // allMarker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_x != "") allNode!!.get(0).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_y != "") allNode!!.get(0).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_z != "") allNode!!.get(0).site_map_coord_z else "0")!!))
+                    allMarker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_x != "") allNode!!.get(0).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_y != "") allNode!!.get(0).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_z != "") allNode!!.get(0).site_map_coord_z else "0")!!, allNode!!.get(0).store_id!!, allNode!!.get(0).floor_name!!, allNode!!.get(0).site_id!!, allNode!!.get(0).store_name))
+                }
+            }
+
+            var path_node_array_1: Array<String>? = null
+            if (routeLayer!!.selected_floor_path_mapping.size > 0) {
+                for ((k, v) in routeLayer!!.selected_floor_path_mapping) {
+                    println("$k = $v")
+                    path_node_array_1 = "$v"!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+                }
+                path_node_array=path_node_array_1
+            }
+
+
+            var totCalorie = routeLayer!!.tot_calorie.toInt()
+            total_calorie=totCalorie+total_calorie!!
+            var totSteps = routeLayer!!.tot_steps
+            total_steps=totSteps+total_steps!!
+            var instruction_list = routeLayer!!.instruction_list
+            var instruction_site_list = routeLayer!!.instruction_site_list
+            var instruction_direction_list = routeLayer!!.instruction_direction_list
+            total_instruction_list!!.addAll(instruction_list)
+            total_instruction_site_list!!.addAll(instruction_site_list)
+            total_instruction_direction_list!!.addAll(instruction_direction_list)
+            calorieCallback!!.onCalorieSteps(total_calorie.toString(), total_steps.toString(), total_instruction_list, total_instruction_site_list, total_instruction_direction_list)
+
+        } catch (e: java.lang.Exception) {
+            Log.e("Clauste3D", ""+e.message)
+            calorieCallback!!.onCalorieSteps("","", null, null, null)
+
+        }
     }
 
     private fun destination_data(destination_beacon_id: String) {
