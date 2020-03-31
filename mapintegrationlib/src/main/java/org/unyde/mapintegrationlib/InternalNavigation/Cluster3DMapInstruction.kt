@@ -33,9 +33,12 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
     var temp_connection_list_source: java.util.HashMap<String, List<String>>? = null
     var temp_connection_list_destination: java.util.HashMap<String, List<String>>? = null
 
-    var total_instruction_list: ArrayList<String>? = null
-    var total_instruction_site_list: ArrayList<String>? = null
-    var total_instruction_direction_list: ArrayList<Int>? = null
+    var source_instruction_list: ArrayList<String>? = null
+    var source_instruction_site_list: ArrayList<String>? = null
+    var source_instruction_direction_list: ArrayList<Int>? = null
+    var destination_instruction_list: ArrayList<String>? = null
+    var destination_instruction_site_list: ArrayList<String>? = null
+    var destination_instruction_direction_list: ArrayList<Int>? = null
     var total_calorie:Int?=null
     var total_steps:Int?=null
 
@@ -50,9 +53,12 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
 
         mActionMode = IndoorMode.NORMAL
         routeLayer = RouteLayer()
-        total_instruction_list = ArrayList<String>()
-        total_instruction_site_list = ArrayList<String>()
-        total_instruction_direction_list = ArrayList<Int>()
+        source_instruction_list = ArrayList<String>()
+        source_instruction_site_list = ArrayList<String>()
+        source_instruction_direction_list = ArrayList<Int>()
+        destination_instruction_list = ArrayList<String>()
+        destination_instruction_site_list = ArrayList<String>()
+        destination_instruction_direction_list = ArrayList<Int>()
 
 
     }
@@ -139,15 +145,13 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
 
             var totCalorie = routeLayer!!.tot_calorie.toInt()
             var totSteps = routeLayer!!.tot_steps
-            var instruction_list = routeLayer!!.instruction_list
-            var instruction_site_list = routeLayer!!.instruction_site_list
-            var instruction_direction_list = routeLayer!!.instruction_direction_list
-            total_instruction_list!!.addAll(instruction_list)
-            total_instruction_site_list!!.addAll(instruction_site_list)
-            total_instruction_direction_list!!.addAll(instruction_direction_list)
+            source_instruction_list = routeLayer!!.instruction_list as ArrayList<String>
+            source_instruction_site_list = routeLayer!!.instruction_site_list as ArrayList<String>
+            source_instruction_direction_list = routeLayer!!.instruction_direction_list as ArrayList<Int>
+
             if(isSameFloor!!)
             {
-                calorieCallback!!.onCalorieSteps(totCalorie.toString(), totSteps.toString(), instruction_list, instruction_site_list, instruction_direction_list)
+                calorieCallback!!.onCalorieSteps(totCalorie.toString(), totSteps.toString(), source_instruction_list, source_instruction_site_list, source_instruction_direction_list)
             }
 
 
@@ -190,13 +194,11 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
             total_calorie=totCalorie+total_calorie!!
             var totSteps = routeLayer!!.tot_steps
             total_steps=totSteps+total_steps!!
-            var instruction_list = routeLayer!!.instruction_list
-            var instruction_site_list = routeLayer!!.instruction_site_list
-            var instruction_direction_list = routeLayer!!.instruction_direction_list
-            total_instruction_list!!.addAll(instruction_list)
-            total_instruction_site_list!!.addAll(instruction_site_list)
-            total_instruction_direction_list!!.addAll(instruction_direction_list)
-            calorieCallback!!.onCalorieSteps(total_calorie.toString(), total_steps.toString(), total_instruction_list, total_instruction_site_list, total_instruction_direction_list)
+            destination_instruction_list = routeLayer!!.instruction_list as ArrayList<String>
+             destination_instruction_site_list = routeLayer!!.instruction_site_list as ArrayList<String>
+            destination_instruction_direction_list = routeLayer!!.instruction_direction_list as ArrayList<Int>
+
+            calorieCallback!!.onCalorieSteps1(total_calorie.toString(), total_steps.toString(),source_instruction_list,source_instruction_site_list,source_instruction_direction_list, destination_instruction_list, destination_instruction_site_list, destination_instruction_direction_list)
 
         } catch (e: java.lang.Exception) {
             Log.e("Clauste3D", ""+e.message)
@@ -282,6 +284,7 @@ class Cluster3DMapInstruction(internal var activity: AppCompatActivity, var calo
 
     interface CalorieStepsCallback {
         fun onCalorieSteps(calorie: String?, steps: String?, instruction_list: MutableList<String>?, instruction_site_list: MutableList<String>?, instruction_direction_list: MutableList<Int>?)
+        fun onCalorieSteps1(calorie: String?, steps: String?, instruction_list: MutableList<String>?, instruction_site_list: MutableList<String>?, instruction_direction_list: MutableList<Int>?, destination_instruction_list: MutableList<String>?, destination_instruction_site_list: MutableList<String>?, destination_instruction_direction_list: MutableList<Int>?)
     }
 
 }

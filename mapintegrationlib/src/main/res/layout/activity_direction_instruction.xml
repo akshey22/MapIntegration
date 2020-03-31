@@ -79,7 +79,7 @@
                 >
                 <TextView
                     android:id="@+id/source"
-                    style="@style/TextAppearance.Medium"
+                    style="@style/TextAppearance.Small.SemiBold"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/transparent"
@@ -117,7 +117,7 @@
                 >
                 <TextView
                     android:id="@+id/destination"
-                    style="@style/TextAppearance.Medium"
+                    style="@style/TextAppearance.Small.SemiBold"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/transparent"
@@ -191,8 +191,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/_10sdp">
                 <TextView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:background="@drawable/acc_blue_border"
@@ -268,8 +268,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/_10sdp">
                 <TextView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:background="@drawable/acc_blue_border"

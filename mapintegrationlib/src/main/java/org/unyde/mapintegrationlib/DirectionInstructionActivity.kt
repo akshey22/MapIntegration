@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMapInstruction
+import org.unyde.mapintegrationlib.adapter.DestinationStepsListAdapter
 import org.unyde.mapintegrationlib.adapter.SourceStepsListAdapter
 import org.unyde.mapintegrationlib.util.Constants
 
@@ -67,6 +68,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
     var destination :TextView?=null
     var steps :TextView?=null
     var floor_1 :TextView?=null
+    var floor_2:TextView?=null
     var steps_recycler :RecyclerView?=null
     var steps_recycler_1 :RecyclerView?=null
     var cc_1 :CardView?=null
@@ -74,6 +76,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
 
     ///////////////////////////////////
     var sourceStepsListAdapter: SourceStepsListAdapter? = null
+    var destinationStepsListAdapter: DestinationStepsListAdapter? = null
 
 
 
@@ -86,6 +89,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
         destination = findViewById(R.id.destination)
         steps = findViewById(R.id.steps)
         floor_1 = findViewById(R.id.floor_1)
+        floor_2 = findViewById(R.id.floor_2)
         steps_recycler = findViewById(R.id.steps_recycler)
         steps_recycler_1 = findViewById(R.id.steps_recycler_1)
         steps_recycler?.setLayoutManager(GridLayoutManager(this@DirectionInstructionActivity, 1, RecyclerView.VERTICAL, false))
@@ -117,10 +121,13 @@ class DirectionInstructionActivity : AppCompatActivity(),
         if(source_floor_level_i_m_here!!.toInt()!=dest_floor_level.toInt())
         {
           cc_2!!.visibility=View.VISIBLE
+            floor_1!!.text=source_floor_name
+            floor_2!!.text=destination_floor_name
         }
         else
         {
             cc_2!!.visibility=View.GONE
+            floor_1!!.text=source_floor_name
         }
         shownFloorMap = floor.toString()
         cluster3DMapInstruction = Cluster3DMapInstruction(this,  this, cluster_id!!)
@@ -163,6 +170,40 @@ class DirectionInstructionActivity : AppCompatActivity(),
         }
     }
 
+    override fun onCalorieSteps1(
+        calorie: String?,
+        steps_count: String?,
+        instruction_list: MutableList<String>?,
+        instruction_site_list: MutableList<String>?,
+        instruction_direction_list: MutableList<Int>?,
+        destination_instruction_list: MutableList<String>?,
+        destination_instruction_site_list: MutableList<String>?,
+        destination_instruction_direction_list: MutableList<Int>?
+    ) {
+        try {
+
+            if (calorie.equals("")) {
+                // Pref_manager.customToastNew(this@Cluster3DLocateMapActivity, "No Result Found", "")
+                // d_nav_linear!!.visibility = View.GONE
+                // nav_bottomsheet?.setState(BottomSheetBehavior.STATE_HIDDEN);
+            } else {
+                steps!!.text="Route Steps("+steps_count+" steps)"
+                this.instruction_list = instruction_list
+                this.instruction_site_list = instruction_site_list
+                this.instruction_direction_list = instruction_direction_list
+                sourceStepsListAdapter = SourceStepsListAdapter(instruction_list, instruction_site_list, instruction_direction_list, this@DirectionInstructionActivity)
+                steps_recycler?.setAdapter(sourceStepsListAdapter)
+                sourceStepsListAdapter!!.notifyDataSetChanged()
+                destinationStepsListAdapter = DestinationStepsListAdapter(destination_instruction_list, destination_instruction_site_list, destination_instruction_direction_list, this@DirectionInstructionActivity)
+                steps_recycler_1?.setAdapter(destinationStepsListAdapter)
+                destinationStepsListAdapter!!.notifyDataSetChanged()
+            }
+
+
+        } catch (e: Exception) {
+
+        }
+    }
 
 
     fun getDirection() {
