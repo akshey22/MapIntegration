@@ -12,6 +12,7 @@ import android.view.View
 import android.view.Window
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMapInstruction
@@ -87,6 +88,8 @@ class DirectionInstructionActivity : AppCompatActivity(),
         floor_1 = findViewById(R.id.floor_1)
         steps_recycler = findViewById(R.id.steps_recycler)
         steps_recycler_1 = findViewById(R.id.steps_recycler_1)
+        steps_recycler?.setLayoutManager(GridLayoutManager(this@DirectionInstructionActivity, 1, RecyclerView.VERTICAL, false))
+        steps_recycler_1?.setLayoutManager(GridLayoutManager(this@DirectionInstructionActivity, 1, RecyclerView.VERTICAL, false))
         cc_1 = findViewById(R.id.cc_1)
         cc_2 = findViewById(R.id.cc_2)
         ///////////from Other Activity
@@ -145,7 +148,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
                // d_nav_linear!!.visibility = View.GONE
                // nav_bottomsheet?.setState(BottomSheetBehavior.STATE_HIDDEN);
             } else {
-                steps!!.text="Route Steps("+steps_count+"steps)"
+                steps!!.text="Route Steps("+steps_count+" steps)"
                 this.instruction_list = instruction_list
                 this.instruction_site_list = instruction_site_list
                 this.instruction_direction_list = instruction_direction_list
