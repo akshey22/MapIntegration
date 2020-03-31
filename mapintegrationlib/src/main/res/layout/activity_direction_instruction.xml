@@ -185,7 +185,6 @@
                 android:id="@+id/llFloor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="100"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/_10sdp">
                 <TextView
@@ -243,51 +242,6 @@
 
 
 
-  <!--  <androidx.cardview.widget.CardView
-        android:id="@+id/search_card"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_below="@+id/top_malls"
-        android:layout_marginLeft="@dimen/_15sdp"
-        android:layout_marginRight="@dimen/_15sdp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="0dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           android:background="@drawable/border_with_greyback_les_1"
-            >
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/source"
-                style="@style/TextAppearance.Medium"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/transparent"
-                android:drawablePadding="@dimen/_10sdp"
-                android:paddingBottom="9dp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:gravity="center_vertical"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/black"
-                android:singleLine="true"
-
-                />
-        </LinearLayout>
-
-
-
-    </androidx.cardview.widget.CardView>-->
-
-  <!--  <View
-        android:layout_width="match_parent"
-        android:layout_height="0.7dp"
-        android:id="@+id/line"
-        android:layout_below="@id/search_card"
-        android:background="@color/grey_20"
-        android:layout_marginTop="@dimen/_10sdp"
-        />-->
 
 
 
