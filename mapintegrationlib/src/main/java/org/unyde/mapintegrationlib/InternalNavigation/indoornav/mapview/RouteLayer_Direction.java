@@ -100,6 +100,10 @@ public class RouteLayer_Direction extends MapBaseLayer {
         instruction_list = new ArrayList<String>();
         instruction_site_list = new ArrayList<String>();
         instruction_direction_list = new ArrayList<Integer>();
+
+        destination_instruction_list = new ArrayList<String>();
+        destination_instruction_site_list = new ArrayList<String>();
+        destination_instruction_direction_list = new ArrayList<Integer>();
     }
 
     public RouteLayer_Direction(MapView mapView, List<String> nodeName, List<PointF> marks, List<PointF> nodeList, List<Integer> routeList) {
