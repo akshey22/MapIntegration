@@ -100,15 +100,16 @@ class DirectionInstructionActivity : AppCompatActivity(),
         source_beacon_siteid_i_m_here = intent.getStringExtra("source_site_id")
         source_floor_level_i_m_here = intent.getStringExtra("source_floor")
         source_store_name_i_m_here = intent.getStringExtra("source_store_name")
-        source!!.text=source_store_name_i_m_here
+
         source_floor = intent.getStringExtra("source_floor")
         source_floor_name = intent.getStringExtra("source_floor_name")
+        source!!.text=source_store_name_i_m_here+", "+source_floor_name
         destination_site = intent.getStringExtra("destination_site_id")
         dest_floor_level = intent.getStringExtra("destination_floor_level")
         destination_floor = intent.getStringExtra("destination_floor_level")
         destination_floor_name = intent.getStringExtra("destination_floor_name")
         destination_store_name = intent.getStringExtra("destination_store_name")
-        destination!!.text=destination_store_name
+        destination!!.text=destination_store_name+", "+destination_floor_name
         destination_logo = intent.getStringExtra("destination_logo")
 
         destination_store_address = intent.getStringExtra("destination_store_address")
