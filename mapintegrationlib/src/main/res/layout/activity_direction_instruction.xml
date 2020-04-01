@@ -181,6 +181,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/border_with_greyback_les_1"
 >
 
             <LinearLayout
@@ -258,6 +259,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/border_with_greyback_les_1"
             >
 
             <LinearLayout
@@ -324,12 +326,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/buttons_layout_tut"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_48sdp"
+        android:layout_height="@dimen/_30sdp"
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         app:cardCornerRadius="0dp"
         app:cardElevation="@dimen/_1sdp"
         android:layout_below="@id/cc_2">
@@ -340,7 +342,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/_18sdp"
-            android:layout_marginRight="@dimen/_18sdp">
+            android:layout_marginRight="@dimen/_18sdp"
+            >
 
             <com.balysv.materialripple.MaterialRippleLayout
                 android:layout_width="match_parent"
@@ -349,7 +352,7 @@
 
                 <TextView
                     android:id="@+id/ivNext_tut"
-                    style="@style/TextAppearance.Title.Light"
+                    style="@style/TextAppearance.Medium1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_alignParentEnd="true"
