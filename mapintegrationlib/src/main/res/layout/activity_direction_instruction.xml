@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_chevron_left_black_24dp" />
+            app:srcCompat="@drawable/ic_chevron_left_black_24dp" />
 
 
     </RelativeLayout>
@@ -36,19 +36,26 @@
         android:orientation="vertical">
         <ImageView
             android:id="@+id/loc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_start_point"
-            android:layout_marginTop="@dimen/_4sdp"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_start_point"
+            android:layout_marginTop="@dimen/_8sdp"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="20dp"
+            android:background="@drawable/dotted"
+           android:layout_gravity="center"></View>
 
         <ImageView
             android:id="@+id/loca"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:scaleType="fitXY"
             android:layout_below="@+id/loc"
-            android:layout_marginLeft="@dimen/_11sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:src="@drawable/ic_destination_point" />
+            android:layout_marginLeft="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:srcCompat="@drawable/ic_destination_point" />
 
     </LinearLayout>
 
@@ -57,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/ll"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_2sdp"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/_15sdp">
 
@@ -176,7 +183,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
         app:cardElevation="0dp"
         android:layout_marginBottom="@dimen/_20sdp">
         <RelativeLayout
@@ -237,7 +244,7 @@
                         android:layout_height="@dimen/_110sdp"
                         android:background="@drawable/dotted"
                         android:layout_marginLeft="@dimen/_18sdp"
-                        android:layout_marginBottom="@dimen/_15sdp"
+
                         android:layout_gravity="center"></View>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/steps_recycler"
@@ -266,7 +273,7 @@
         android:layout_below="@+id/cc_1"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
         app:cardElevation="0dp"
         android:layout_marginBottom="@dimen/_10sdp">
         <RelativeLayout
@@ -326,7 +333,6 @@
                         android:layout_height="@dimen/_110sdp"
                         android:background="@drawable/dotted"
                         android:layout_marginLeft="@dimen/_18sdp"
-                        android:layout_marginBottom="@dimen/_15sdp"
                         android:layout_gravity="center"></View>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/steps_recycler_1"
