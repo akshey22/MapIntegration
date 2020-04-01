@@ -83,13 +83,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/transparent"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:paddingBottom="9dp"
-                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:imeOptions="actionDone"
                     android:textColorHint="@color/black"
                     android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:text="Donuts"
 
                     />
             </LinearLayout>
@@ -121,14 +121,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/transparent"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:paddingBottom="9dp"
-                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:imeOptions="actionDone"
                     android:textColorHint="@color/black"
                     android:singleLine="true"
-
+                    android:textColor="@color/black"
+                    android:text="Big Bazaar"
                     />
             </LinearLayout>
 
@@ -224,7 +223,7 @@
             <ScrollView
                 android:id="@+id/scroll_view_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_120sdp"
                 android:layout_below="@+id/llFloor"
                 >
                 <androidx.recyclerview.widget.RecyclerView
@@ -301,7 +300,7 @@
             <ScrollView
                 android:id="@+id/scroll_view_2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_120sdp"
                 android:layout_below="@+id/llFloor_1"
                 >
                 <androidx.recyclerview.widget.RecyclerView
@@ -322,7 +321,53 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buttons_layout_tut"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_48sdp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="@dimen/_1sdp"
+        android:layout_below="@id/cc_2">
 
+        <RelativeLayout
+            android:id="@+id/navigation_layout_tut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_18sdp"
+            android:layout_marginRight="@dimen/_18sdp">
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/RippleStyleWhite">
+
+                <TextView
+                    android:id="@+id/ivNext_tut"
+                    style="@style/TextAppearance.Title.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="end|center_vertical"
+                    android:background="@drawable/start_back"
+                    android:gravity="center"
+                    android:text="START"
+                    android:textColor="@color/white" />
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 
 
