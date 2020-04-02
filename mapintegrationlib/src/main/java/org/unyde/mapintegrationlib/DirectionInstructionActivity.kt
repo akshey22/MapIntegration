@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.balysv.materialripple.MaterialRippleLayout
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMapInstruction
 import org.unyde.mapintegrationlib.adapter.DestinationStepsListAdapter
@@ -74,7 +75,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
     var steps_recycler_1 :RecyclerView?=null
     var cc_1 :CardView?=null
     var cc_2 :CardView?=null
-    var btnStartNavigation :RelativeLayout?=null
+    var btnStartNavigation :MaterialRippleLayout?=null
 
     ///////////////////////////////////
     var sourceStepsListAdapter: SourceStepsListAdapter? = null
