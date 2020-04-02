@@ -153,7 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_6sdp">
+        android:layout_marginLeft="@dimen/_10sdp">
         <ImageView
             android:id="@+id/iv_direction"
             android:layout_width="wrap_content"
