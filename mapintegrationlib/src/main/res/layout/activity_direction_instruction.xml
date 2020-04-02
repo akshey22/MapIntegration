@@ -42,18 +42,18 @@
             app:srcCompat="@drawable/ic_start_point"
             android:layout_marginTop="@dimen/_8sdp"/>
         <View
-            android:layout_width="0.5dp"
-            android:layout_height="20dp"
-            android:background="@drawable/dotted"
+            android:layout_width="1dp"
+            android:layout_height="22dp"
+            android:background="@drawable/dotted1"
            android:layout_gravity="center"></View>
 
         <ImageView
             android:id="@+id/loca"
-            android:layout_width="15dp"
-            android:layout_height="20dp"
+            android:layout_width="10dp"
+            android:layout_height="15dp"
             android:scaleType="fitXY"
             android:layout_below="@+id/loc"
-            android:layout_marginLeft="@dimen/_6sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_4sdp"
             app:srcCompat="@drawable/ic_destination_point" />
 
@@ -73,8 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_below="@+id/top_malls"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_6sdp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="0dp"
@@ -111,8 +111,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_below="@+id/top_malls"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_6sdp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="0dp"
