@@ -146,11 +146,11 @@
 
     </LinearLayout>
 </RelativeLayout>
-<view
+<View
     android:layout_width="match_parent"
     android:layout_height="0.5dp"
     android:layout_below="@id/rl"
-    android:background="@color/grey_20"></view>
+    android:background="@color/grey_20"></View>
     <RelativeLayout
         android:id="@+id/rlSteps"
         android:layout_width="match_parent"
