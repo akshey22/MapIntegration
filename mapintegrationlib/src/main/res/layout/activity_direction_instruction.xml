@@ -361,7 +361,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/buttons_layout_tut"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="@dimen/_50sdp"
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:orientation="vertical"
