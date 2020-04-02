@@ -187,6 +187,7 @@ class ClusterMapNavigationActivity1 : AppCompatActivity(), FloorClickListner, Sc
         source_beacon_siteid_i_m_here = intent.getStringExtra("source_site_id")
         source_floor_level_i_m_here = intent.getStringExtra("source_floor")
         source_store_name_i_m_here = intent.getStringExtra("source_store_name")
+        title_step_store!!.text="You are at "+source_store_name_i_m_here
         source_floor = intent.getStringExtra("source_floor")
         destination_site = intent.getStringExtra("destination_site_id")
         dest_floor_level = intent.getStringExtra("destination_floor_level")
@@ -366,7 +367,7 @@ class ClusterMapNavigationActivity1 : AppCompatActivity(), FloorClickListner, Sc
 
                         if(instruction_count==1)
                         {
-                            title_step_store!!.setText("You are at source")
+                            title_step_store!!.setText("You are at "+source_store_name_i_m_here)
                             navigation_top_ui!!.setBackgroundResource(R.drawable.start_point)
                            // Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
                         }
