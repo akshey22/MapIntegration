@@ -1,6 +1,7 @@
 package org.unyde.mapintegrationlib
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -73,6 +74,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
     var steps_recycler_1 :RecyclerView?=null
     var cc_1 :CardView?=null
     var cc_2 :CardView?=null
+    var btnStartNavigation :RelativeLayout?=null
 
     ///////////////////////////////////
     var sourceStepsListAdapter: SourceStepsListAdapter? = null
@@ -96,6 +98,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
         steps_recycler_1?.setLayoutManager(GridLayoutManager(this@DirectionInstructionActivity, 1, RecyclerView.VERTICAL, false))
         cc_1 = findViewById(R.id.cc_1)
         cc_2 = findViewById(R.id.cc_2)
+        btnStartNavigation = findViewById(R.id.btnStartNavigation)
         ///////////from Other Activity
         source_beacon_siteid_i_m_here = intent.getStringExtra("source_site_id")
         source_floor_level_i_m_here = intent.getStringExtra("source_floor")
@@ -137,6 +140,27 @@ class DirectionInstructionActivity : AppCompatActivity(),
 
         back_button!!.setOnClickListener {
             finish()
+        }
+
+
+        btnStartNavigation!!.setOnClickListener{
+            var prodIn = Intent(this@DirectionInstructionActivity, ClusterMapNavigationActivity::class.java)
+            prodIn.putExtra("source_site_id", source_beacon_siteid_i_m_here)
+            prodIn.putExtra("source_floor", source_floor_level_i_m_here)
+            prodIn.putExtra("source_floor_name", source_floor_name)
+            prodIn.putExtra("source_store_name", source_store_name_i_m_here)
+            prodIn.putExtra("destination_site_id", destination_site)
+            prodIn.putExtra("destination_floor_level", destination_floor)
+            prodIn.putExtra("destination_floor_name", destination_floor_name)
+            prodIn.putExtra("destination_store_id", destination_store)
+            prodIn.putExtra("destination_store_name", destination_store_name)
+            prodIn.putExtra("destination_store_address", destination_store_address)
+            prodIn.putExtra("destination_logo", destination_logo)
+            prodIn.putExtra("cluster_id", cluster_id)
+            prodIn.putExtra("mall_name", mall_name)
+            prodIn.putExtra("isViaBeacon", false)
+            prodIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(prodIn)
         }
 
     }

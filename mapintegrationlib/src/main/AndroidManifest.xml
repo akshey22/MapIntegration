@@ -13,7 +13,14 @@
             android:name=".MyApplication"
             android:allowBackup="false"
             android:label="@string/app_name"
-            android:supportsRtl="true">
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".ClusterMapNavigationActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"
+            />
        <!-- <service
                 android:name=".services.CheckInCheckOutService"
                 android:enabled="true" />-->

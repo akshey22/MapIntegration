@@ -368,7 +368,7 @@
         android:layout_below="@id/cc_2">
 
         <RelativeLayout
-            android:id="@+id/navigation_layout_tut"
+            android:id="@+id/btnStartNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
