@@ -146,7 +146,11 @@
 
     </LinearLayout>
 </RelativeLayout>
-
+<view
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@id/rl"
+    android:background="@color/grey_20"></view>
     <RelativeLayout
         android:id="@+id/rlSteps"
         android:layout_width="match_parent"
@@ -185,7 +189,7 @@
         android:layout_marginRight="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_5sdp"
         app:cardElevation="0dp"
-        android:layout_marginBottom="@dimen/_20sdp">
+        android:layout_marginBottom="@dimen/_10sdp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -208,7 +212,7 @@
                     android:textColor="@color/white"
                     android:textAlignment="center"
                     android:gravity="center_vertical"
-                    style="@style/TextAppearance.Medium">
+                    style="@style/TextAppearance.SmallMore.Light">
 
                 </TextView>
                 <TextView
@@ -298,7 +302,7 @@
                     android:textColor="@color/white"
                     android:textAlignment="center"
                     android:gravity="center_vertical"
-                    style="@style/TextAppearance.Medium">
+                    style="@style/TextAppearance.SmallMore.Light">
 
                 </TextView>
                 <TextView
@@ -365,7 +369,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         app:cardCornerRadius="0dp"
         app:cardElevation="@dimen/_1sdp"
-        android:layout_below="@id/cc_2">
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
