@@ -145,7 +145,7 @@ class DirectionInstructionActivity : AppCompatActivity(),
 
 
         btnStartNavigation!!.setOnClickListener{
-            var prodIn = Intent(this@DirectionInstructionActivity, ClusterMapNavigationActivity::class.java)
+            var prodIn = Intent(this@DirectionInstructionActivity, ClusterMapNavigationActivity1::class.java)
             prodIn.putExtra("source_site_id", source_beacon_siteid_i_m_here)
             prodIn.putExtra("source_floor", source_floor_level_i_m_here)
             prodIn.putExtra("source_floor_name", source_floor_name)

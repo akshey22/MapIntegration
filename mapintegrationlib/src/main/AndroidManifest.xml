@@ -17,7 +17,7 @@
             android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ClusterMapNavigationActivity"
+            android:name=".ClusterMapNavigationActivity1"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
             />

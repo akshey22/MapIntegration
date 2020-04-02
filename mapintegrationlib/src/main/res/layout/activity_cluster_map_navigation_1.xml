@@ -123,7 +123,7 @@
                             android:layout_centerVertical="true"
                             android:id="@+id/start_prev_image"
                             android:layout_marginRight="@dimen/_6sdp"
-                            android:src="@drawable/ic_arrow_left"/>
+                            android:src="@drawable/ic_share_wite"/>
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -149,6 +149,7 @@
                     android:layout_marginBottom="@dimen/_7sdp"
                     android:layout_marginTop="@dimen/_7sdp"
                     android:layout_height="@dimen/_35sdp"
+                    android:visibility="gone"
                     android:id="@+id/next_step_btn"
                     style="@style/RippleStyleWhite">
 
@@ -156,7 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_alignParentBottom="true"
                         android:gravity="center"
-                        android:background="@drawable/start_back"
+                        android:background="@drawable/bg_gradient_new_up_cornor"
                         android:layout_height="match_parent">
 
                     <TextView
